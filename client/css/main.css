@@ -1,0 +1,30 @@
+/* CSS RESET */
+:root {
+  --clr-main-dark: #2c2a2c;
+  --clr-main-light: #f3e9f3;
+  --clr-secondary-dark: #ca9115;
+  --clr-transparent-full: #00000036;
+  --clr-transparent-light: #00000090;
+  font-family: sans-serif;
+  font-size: 10px;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+input,
+select,
+textarea,
+.form-control {
+  border: 1px #cfceca solid;
+  outline: none;
+}
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
