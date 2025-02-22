@@ -181,9 +181,15 @@ h3 {
   & {
     display: flex;
     gap: 1rem;
-    text-transform: lowercase;
+    text-transform: capitalize;
     align-items: center;
     justify-content: center;
+    font-size: 1.4rem;
+  }
+  .link {
+    width: 100%;
+    display: flex;
+    gap: 0.4rem;
   }
   .link:hover {
     color: var(--clr-green);
@@ -191,6 +197,15 @@ h3 {
 }
 /* VIEW PORTS */
 @media (min-width: 600px) {
+  h1 {
+    font-size: 2.5em;
+  }
+  h2 {
+    font-size: 2em;
+  }
+  h3 {
+    font-size: 1.8em;
+  }
   .container--home {
     & {
       grid-template-columns: repeat(12, 1fr);
