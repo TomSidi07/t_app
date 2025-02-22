@@ -38,7 +38,14 @@ class Router extends http.Server {
           if (actor) {
             const [path, { path_confs, handlers }] = actor;
             const { atsKeys, paramsKeys, regex, at_regex } = path_confs;
-           
+            let params_match = url?.match(regex);
+            let at_match = url.match(at_regex);
+            if (params_match) {
+              console.log(params_match);
+            }
+            if (at_match) {
+              console.log(at_match);
+            }
             // console.log("path", URL.parse(path));
             // || url.match(regex)
             if (URL.parse(path).pathname === URL.parse(url).pathname) {
