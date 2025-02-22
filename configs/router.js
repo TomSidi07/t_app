@@ -2,7 +2,11 @@ process.env.environnement = "development";
 const http = require("http");
 const URL = require("url");
 const path_module = require("path");
-const { handlePathSlash, getPathRegex } = require("../lib/functions");
+const {
+  handlePathSlash,
+  getPathRegex,
+  matchReqParams,
+} = require("../lib/functions");
 const MainChain = new Map();
 class Router extends http.Server {
   constructor() {
@@ -40,14 +44,11 @@ class Router extends http.Server {
             const { atsKeys, paramsKeys, regex, at_regex } = path_confs;
             let params_match = url?.match(regex);
             let at_match = url.match(at_regex);
-            if (params_match) {
-              console.log(params_match);
-            }
-            if (at_match) {
-              console.log(at_match);
-            }
-            // console.log("path", URL.parse(path));
-            // || url.match(regex)
+            // add request url params
+            matchReqParams(req, paramsKeys, params_match, "params");
+            // add request ats
+            matchReqParams(req, atsKeys, at_match, "ats");
+
             if (URL.parse(path).pathname === URL.parse(url).pathname) {
               let len = -1;
 
@@ -182,6 +183,12 @@ server.get(
 );
 user_route.get("/profil", (req, res) => {
   res.end("USER PROFIL");
+});
+user_route.get("/:id/:name", (req, res) => {
+  res.end("USER PROFIL");
+});
+server.get("/@username", (req, res) => {
+  res.end(req.ats.username);
 });
 // console.log(MainChain);
 server.listen(3000, () => {
