@@ -4,9 +4,8 @@ const root = document.getElementById("root");
 class App {
   constructor(container) {
     this.container = container;
+    app_component();
   }
 }
 
 new App(root);
-console.log("connected");
-console.log(app_component());
