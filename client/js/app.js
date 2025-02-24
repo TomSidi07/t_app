@@ -2,7 +2,7 @@ const root = document.getElementById("root");
 class App {
   constructor(container) {
     this.container = container;
-    alert("app iniatialized");
+    // alert("app iniatialized");
   }
 }
 
