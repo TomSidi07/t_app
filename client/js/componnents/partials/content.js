@@ -1,5 +1,5 @@
 import { component_render } from "../../render/render.js";
-import link from "../link.js";
+import { link } from "../link.js";
 import { blemcounter_component } from "../plugins/blem-couter.js";
 
 export default function content_component(container) {

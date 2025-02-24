@@ -1,5 +1,5 @@
 import { component_render } from "../../render/render.js";
-export default function greet_page(container) {
+export  function greet_page(container) {
   let tag_name = "ct-btn";
   return component_render(
     tag_name,
