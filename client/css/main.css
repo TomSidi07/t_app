@@ -1,6 +1,7 @@
 /* CSS RESET */
 :root {
-  --clr-main-dark: #2c2a2c;
+  --clr-main-dark: #232023;
+  --clr-full-dark: #110f11;
   --clr-main-light: #f3e9f3;
   --clr-secondary-dark: #ca9115;
   --clr-green: #15ca88;
@@ -40,8 +41,6 @@ body {
 #root {
   position: relative;
   margin: 0 auto;
-  width: 100vw;
-  height: 100vh;
 }
 span {
   display: inline-block;
@@ -121,7 +120,7 @@ h3 {
 }
 /* CONTAINER */
 .container {
-  margin: 0 auto;
+  margin: auto auto;
   position: relative;
   max-width: 95rem;
 }
@@ -142,16 +141,23 @@ h3 {
 /* container home */
 .container--home {
   & {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(12, 1fr);
     height: 100%;
     width: 100%;
+    padding: 1rem;
     background-color: var(--clr-main-dark);
     color: var(--clr-main-light);
   }
 }
 /* LAYOUT */
+#root {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--clr-main-dark);
+  color: var(--clr-main-light);
+}
 /* HEADER */
 #Header {
   & {
@@ -186,6 +192,7 @@ h3 {
     font-size: 1.4rem;
   }
   .link {
+    font-size: 1.5rem;
     width: 100%;
     display: flex;
     gap: 0.4rem;
@@ -201,7 +208,7 @@ h3 {
     flex-direction: column;
     grid-row: 2/-1;
     grid-column: 1/-1;
-    background-color: var(--clr-secondary-dark);
+    background-color: var(--clr-full-dark);
   }
 }
 /* MAIN CONTENT */
@@ -210,6 +217,7 @@ h3 {
 }
 /* MAIN BOTTOM */
 #Bottom {
+  border-top: var(--clr-transparent-white) 1px solid;
   display: flex;
   padding: 1rem;
   text-align: center;
@@ -267,7 +275,7 @@ h3 {
   h3 {
     font-size: 1.8em;
   }
-  .container--home {
+  #root {
     & {
       grid-template-columns: repeat(12, 1fr);
     }
@@ -276,15 +284,17 @@ h3 {
     & {
       flex-direction: column;
       justify-content: start;
+      align-items: start;
       gap: 2rem;
       grid-row: 1/-1;
       grid-column: 1/2;
       padding: 2rem 1rem;
     }
     .logo {
-      padding: 1rem 0;
+      padding: 1rem 1rem 1rem 0.2rem;
       font-size: 1.8rem;
       white-space: nowrap;
+      width: 100%;
     }
     .nav--main {
       flex-direction: column;
@@ -305,10 +315,7 @@ h3 {
     flex-grow: 1;
   }
   #Bottom {
-    display: flex;
-    padding: 1rem;
     text-align: center;
-    background-color: var(--clr-transparent-light);
     font-size: 0.6rem;
   }
 }
