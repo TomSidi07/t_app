@@ -34,6 +34,7 @@ textarea,
   box-sizing: border-box;
 }
 body {
+  margin: 0 auto;
   color: var(--clr-font);
 }
 #root {
@@ -108,8 +109,8 @@ h3 {
 }
 /* CONTAINER */
 .container {
+  margin: 0 auto;
   position: relative;
-  padding: 1rem 2rem;
   max-width: 95rem;
 }
 /* container greet */
