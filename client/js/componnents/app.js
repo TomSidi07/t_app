@@ -1,14 +1,17 @@
 import { component_render } from "../render/render.js";
+import container_home_component from "./container_home.js";
+
 
 export default function app_component() {
+  let tagname = "app-root";
   return component_render(
-    "app-root",
-    "<h1>Hello Tom</h1>",
+    tagname,
+    `${container_home_component(tagname)}`,
     () => {
-      console.log("I am render");
+      console.log("I am app");
     },
     document.getElementById("root"),
-    true,
-    []
+    true
+    // [header_component(tagname)]
   );
 }

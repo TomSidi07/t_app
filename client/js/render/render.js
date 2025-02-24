@@ -16,27 +16,53 @@ export function component_render(
   cb,
   container,
   clean_container = false,
-  insert_index = 0,
-  children
+  properties = {},
+  options
 ) {
+  let Prototype = HTMLElement;
+  if (typeof container === "string") {
+    container = document.querySelector(container);
+    console.log("container", container);
+  }
+  if (options) {
+    const { protoOf } = options;
+    if (protoOf) {
+      Prototype = protoOf;
+    }
+  }
   const element = definer(
     tag_name,
-    class extends HTMLElement {
+    class extends Prototype {
       constructor() {
         super();
+
         // this.attachShadow({ mode: "open" });
         this.innerHTML = initial_code;
       }
       connectedCallback() {
+        if (properties) {
+          const prop_keys = Object.keys(properties);
+          for (let p = 0; p < prop_keys.length; p++) {
+            let prop_key = prop_keys[p];
+            let prop_val = properties[prop_key];
+            if (Array.isArray(prop_val)) {
+              this.setAttribute(prop_key, prop_val.join(" "));
+            } else {
+              this.setAttribute(prop_key, prop_val);
+            }
+          }
+        }
         console.log("happy");
         if (cb) cb();
       }
     }
   );
+
   if (clean_container && container) {
     container.innerHTML = ``;
   }
   if (container) {
     container.insertAdjacentHTML("afterbegin", element);
   }
+  return element;
 }
