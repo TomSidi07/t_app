@@ -75,6 +75,18 @@ h3 {
 .text--red {
   color: var(--clr-red);
 }
+.text--bold {
+  font-weight: bold;
+}
+.text--large {
+  font-size: 2.4rem;
+}
+.text--medium {
+  font-size: 1.6rem;
+}
+.text--small {
+  font-size: 1rem;
+}
 .text--white {
   color: var(--clr-main-light);
 }
@@ -157,11 +169,13 @@ h3 {
     display: none;
   }
 }
+/* LINKS */
 .link {
   & {
     color: var(--clr-main-light);
   }
 }
+/* NAV */
 .nav {
   & {
     display: flex;
@@ -202,7 +216,35 @@ h3 {
   background-color: var(--clr-transparent-light);
   font-size: 0.6rem;
 }
-
+/* PLUGIN */
+.plugin {
+  & {
+    display: flex;
+    position: relative;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    box-shadow: 0 0 15px var(--clr-transparent-light);
+    border-radius: 0.8rem;
+    width: fit-content;
+    height: fit-content;
+    margin: 1rem;
+  }
+  .header__plugin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    flex-direction: column;
+  }
+  .content__plugin {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+  }
+}
 /* VIEW PORTS */
 @media (min-width: 600px) {
   h1 {
