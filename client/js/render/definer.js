@@ -10,6 +10,6 @@ export function definer(tag_name, component) {
     };
   }
   customElements.define(tag_name, component);
-  const element = new String(`<${tag_name}></${tag_name}>`);
+  const element = `<${tag_name}></${tag_name}>`;
   return element;
 }

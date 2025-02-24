@@ -1,4 +1,4 @@
-import { definer } from "./definer";
+import { definer } from "./definer.js";
 
 /**
  *
@@ -12,10 +12,11 @@ import { definer } from "./definer";
  */
 export function component_render(
   tag_name,
-  initial_code,
+  initial_code = "no iniatial code setted up",
   cb,
   container,
   clean_container = false,
+  insert_index = 0,
   children
 ) {
   const element = definer(
@@ -23,10 +24,11 @@ export function component_render(
     class extends HTMLElement {
       constructor() {
         super();
-        this.shadowRoot = { open: true };
-        this.shadowRoot.innerHTML = initial_code;
+        // this.attachShadow({ mode: "open" });
+        this.innerHTML = initial_code;
       }
       connectedCallback() {
+        console.log("happy");
         if (cb) cb();
       }
     }
@@ -35,6 +37,6 @@ export function component_render(
     container.innerHTML = ``;
   }
   if (container) {
-    container.append(element);
+    container.insertAdjacentHTML("afterbegin", element);
   }
 }
