@@ -230,6 +230,11 @@ h3 {
     width: fit-content;
     height: fit-content;
     margin: 1rem;
+    cursor: pointer;
+    transition-duration: 0.27s;
+  }
+  &:active {
+    transform: scale(0.95);
   }
   .header__plugin {
     display: flex;
@@ -243,6 +248,12 @@ h3 {
     align-items: start;
     justify-content: start;
     flex-direction: column;
+  }
+}
+.plugin--blem-counter {
+  & {
+    background-color: var(--clr-white);
+    color: var(--clr-main-dark);
   }
 }
 /* VIEW PORTS */
