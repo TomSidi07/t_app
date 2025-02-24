@@ -1,12 +1,14 @@
 import { component_render } from "../render/render.js";
-import header_component from "./partials/header.js";
-import main_component from "./partials/main.js";
+import { link } from "./link.js";
+import { blemcounter_component } from "./plugins/blem-couter.js";
 export default function container_home_component(container) {
+  let blems = [4];
+  let blemCount = blems.length;
   let tag_name = "container-home";
   return component_render(
     tag_name,
-    `${header_component(tag_name)}
-     ${main_component(tag_name)}`,
+    `${blemcounter_component(blemCount)}
+    ${link("/home", "go home")}`,
     () => {
       // connected callback
       console.log("I am content component");

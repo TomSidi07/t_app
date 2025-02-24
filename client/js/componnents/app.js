@@ -1,17 +1,20 @@
 import { component_render } from "../render/render.js";
-import container_home_component from "./container_home.js";
 
+import header_component from "./partials/header.js";
+import main_component from "./partials/main.js";
 
-export default function app_component() {
-  let tagname = "app-root";
+export default function app_component(container) {
+  let tag_name = "app-root";
   return component_render(
-    tagname,
-    `${container_home_component(tagname)}`,
+    tag_name,
+    `${header_component(tag_name)}
+      ${main_component(tag_name)}`,
+    // connected callback
     () => {
-      console.log("I am app");
+      // console.log("I am app");
     },
-    document.getElementById("root"),
-    true
-    // [header_component(tagname)]
+    container,
+    true,
+    { id: "root" }
   );
 }
