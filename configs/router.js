@@ -23,6 +23,7 @@ class Router extends http.Server {
     return new Application(ctx, MainChain);
   }
   async run_adds(req, res, adds_array) {
+    console.log("running adds");
     if (!adds_array.length) {
       return null;
     }
@@ -31,7 +32,7 @@ class Router extends http.Server {
       x++;
       if (x > adds_array) {
         return console.log("CHAIN DONE");
-      } else {
+      } else if (!res.headersSent) {
         const actor = adds_array[x];
         if (typeof actor == "function") {
           return actor(req, res, next);
@@ -52,67 +53,69 @@ class Router extends http.Server {
   requester(req, res) {
     const { url, headers, method } = req;
     /** @type {Map|Array} */
-    const current_chain = Array.from(MainChain.get(method));
+    const target_chain = MainChain.get(method) || [];
+    const current_chain = Array.from(target_chain);
     const adds_array = MainChain.get("adds");
-    this.run_adds(req, res, adds_array)
-      .then(() => {
-        (function engine(CHAIN, idx = -1) {
-          const next_ = (error = null, cb = null) => {
-            idx++;
-            if (idx >= CHAIN.length) {
-              console.log("end");
-              return res.end("404: not found");
-            } else {
-              const actor = CHAIN[idx];
-              if (actor) {
-                const [path, { path_confs, handlers }] = actor;
-                const { atsKeys, paramsKeys, regex, at_regex } = path_confs;
-                let params_match = url?.match(regex);
-                let at_match = url.match(at_regex);
-                // add request url params
-                matchReqParams(req, paramsKeys, params_match, "params");
-                // add request ats
-                matchReqParams(req, atsKeys, at_match, "ats");
+    console.log(adds_array);
+    this.run_adds(req, res, adds_array).catch((e) => {
+      console.log(e);
+    });
+    if (!res.headersSent) {
+      engine(current_chain);
+    }
+    function engine(CHAIN, idx = -1) {
+      const next_ = (error = null, cb = null) => {
+        idx++;
+        if (idx >= CHAIN.length) {
+          // return res.end("404: not found");
+          return;
+        } else {
+          const actor = CHAIN[idx];
+          if (actor) {
+            const [path, { path_confs, handlers }] = actor;
+            const { atsKeys, paramsKeys, regex, at_regex } = path_confs;
+            let params_match = url?.match(regex);
+            let at_match = url.match(at_regex);
+            // add request url params
+            matchReqParams(req, paramsKeys, params_match, "params");
+            // add request ats
+            matchReqParams(req, atsKeys, at_match, "ats");
 
-                if (
-                  URL.parse(path).pathname === URL.parse(url).pathname ||
-                  params_match ||
-                  at_match
-                ) {
-                  let len = -1;
-                  const next = (error = null, cb = null) => {
-                    try {
-                      if (error) {
-                        return cb(req, res);
-                      }
-                      len++;
-                      if (len >= handlers.length) {
-                        return;
-                      } else {
-                        const func = handlers[len];
-                        console.log("func", func);
-                        if (func) {
-                          return func(req, res, next);
-                        }
-                      }
-                    } catch (error) {
-                      console.log(error);
-                      return cb(req, res);
+            if (
+              URL.parse(path).pathname === URL.parse(url).pathname ||
+              params_match ||
+              at_match
+            ) {
+              let len = -1;
+              const next = (error = null, cb = null) => {
+                try {
+                  if (error) {
+                    return cb(req, res);
+                  }
+                  len++;
+                  if (len >= handlers.length) {
+                    return res.end("404: not found");
+                  } else if (!res.headersSent) {
+                    const func = handlers[len];
+                    console.log("func", func);
+                    if (func) {
+                      return func(req, res, next);
                     }
-                  };
-                  next();
-                } else {
-                  return next_();
+                  }
+                } catch (error) {
+                  console.log(error);
+                  return cb(req, res);
                 }
-              }
+              };
+              next();
+            } else {
+              return next_();
             }
-          };
-          next_();
-        })(current_chain);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+          }
+        }
+      };
+      next_();
+    }
   }
   static Extender = class {
     constructor(basePath) {
@@ -193,6 +196,11 @@ const public_dir = path_module.join(__dirname, "../client");
 
 const file_server = new FST(public_dir);
 file_server.connect(server);
+server.add((req, res, next) => {
+  console.log("hello");
+  res.end("mashmallo");
+  next();
+});
 const user_route = new Router.Extender("user");
 // server.get(
 //   "/",
