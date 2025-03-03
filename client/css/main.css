@@ -16,6 +16,7 @@
 }
 a {
   text-decoration: none;
+  font-size: 1.8rem;
 }
 ul {
   list-style: none;
@@ -37,6 +38,7 @@ textarea,
 body {
   margin: 0 auto;
   color: var(--clr-font);
+  font-size: 1.8rem;
 }
 #root {
   position: relative;
@@ -55,7 +57,7 @@ h3 {
   -webkit-box-orient: horizontal;
   text-overflow: ellipsis;
 }
-h1 {
+/* h1 {
   font-size: 4.5em;
 }
 h2 {
@@ -63,6 +65,11 @@ h2 {
 }
 h3 {
   font-size: 2.6em;
+} */
+img {
+  height: 100%;
+  width: 100%;
+  display: block;
 }
 /* TEXT */
 .text {
@@ -93,20 +100,27 @@ h3 {
 .btn {
   border-radius: 0.6rem;
   padding: 0.5rem 1rem;
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   font-weight: 500;
   border: none;
   outline: none;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .btn--logout {
   background-color: var(--clr-red);
   color: var(--clr-white);
 }
+.btn--show-blem {
+  background-color: var(--clr-green);
+  color: var(--clr-white);
+}
 /* LOGO */
 .logo {
   & {
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: 600;
     letter-spacing: 2px;
     background-color: var(--clr-transparent-full);
@@ -118,11 +132,79 @@ h3 {
     background-color: var(--clr-transparent-white);
   }
 }
+/* card */
+.card {
+  & {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 5px var(--clr-transparent-light);
+    border-radius: 0.6rem;
+    transition-duration: 0.3s;
+  }
+  &:active {
+    transform: scale(0.98);
+  }
+}
+.card--blem {
+  & {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    padding: 1rem;
+    flex-direction: column;
+    background-color: var(--clr-main-light);
+    width: 100%;
+    color: var(--clr-full-dark);
+    /* max-height: 300px; */
+    /* max-width: 300px; */
+    /* overflow: hidden; */
+  }
+  .card__header {
+    & {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      /* height: 100%; */
+      /* background-color: rgb(12, 11, 11); */
+      /* height: 150px; */
+      /* width: 50%; */
+    }
+    img {
+      object-fit: cover;
+    }
+  }
+  .card__content {
+    & {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      position: relative;
+      height: 100%;
+    }
+    .blem_infos {
+      display: flex;
+      justify-content: space-between;
+    }
+    .object {
+      box-orient: horizontal;
+      -webkit-box-orient: horizontal;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 13ch;
+    }
+  }
+}
 /* CONTAINER */
 .container {
   margin: auto auto;
   position: relative;
   max-width: 95rem;
+}
+.container--cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(100px, calc(100% / 2 - 1rem)));
 }
 /* container greet */
 .container--tp-greet {
@@ -146,6 +228,19 @@ h3 {
     padding: 1rem;
     background-color: var(--clr-main-dark);
     color: var(--clr-main-light);
+  }
+}
+/* container blem */
+.container--blem {
+  & {
+    /* background-color: #f3e9f3; */
+    /* color: #110f11; */
+    padding: 0 2rem;
+  }
+  .blem__header {
+    & {
+      padding: 1rem 0;
+    }
   }
 }
 /* LAYOUT */
@@ -173,6 +268,7 @@ h3 {
   }
   .btn--logout {
     display: none;
+    width: 100%;
   }
 }
 /* LINKS */
@@ -192,7 +288,7 @@ h3 {
     font-size: 1.4rem;
   }
   .link {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     width: 100%;
     display: flex;
     gap: 0.4rem;
@@ -214,6 +310,9 @@ h3 {
 /* MAIN CONTENT */
 #Content {
   flex-grow: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
 }
 /* MAIN BOTTOM */
 #Bottom {
@@ -223,6 +322,7 @@ h3 {
   text-align: center;
   background-color: var(--clr-transparent-light);
   font-size: 0.6rem;
+  grid-column: 1/-1;
 }
 /* PLUGIN */
 .plugin {
@@ -280,6 +380,14 @@ h3 {
       grid-template-columns: repeat(12, 1fr);
     }
   }
+  .container--cards {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(100px, calc(100% / 3 - 1rem))
+    );
+  }
   #Header {
     & {
       flex-direction: column;
@@ -292,7 +400,7 @@ h3 {
     }
     .logo {
       padding: 1rem 1rem 1rem 0.2rem;
-      font-size: 1.8rem;
+      font-size: 2.8rem;
       white-space: nowrap;
       width: 100%;
     }
@@ -317,6 +425,8 @@ h3 {
   #Bottom {
     text-align: center;
     font-size: 0.6rem;
+    padding: 2rem;
+    grid-column: 1/-1;
   }
 }
 /* ANNIMATIONS */
