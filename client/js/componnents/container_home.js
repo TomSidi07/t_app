@@ -7,8 +7,7 @@ export default function container_home_component(container) {
   let tag_name = "container-home";
   return component_render(
     tag_name,
-    `${blemcounter_component(blemCount)}
-    ${link("/home", "go home")}`,
+    `${blemcounter_component(blemCount)}`,
     () => {
       // connected callback
       console.log("I am content component");
