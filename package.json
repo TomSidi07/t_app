@@ -3,13 +3,28 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev/router": "nodemon ./configs/router",
+    "dev": "nodemon app",
+    "test/router": "nodemon ./test/router"
   },
   "keywords": [],
-  "author": "",
+  "author": "TomSidi07",
   "license": "ISC",
-  "description": "",
+  "description": "T APP the solution to your BLEM",
   "dependencies": {
     "t_app": "file:"
-  }
+  },
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomSidi07/t_app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TomSidi07/t_app/issues"
+  },
+  "homepage": "https://github.com/TomSidi07/t_app#readme"
 }
